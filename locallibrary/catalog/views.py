@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 
 from catalog.models import Book, Author, BookInstance, Genre
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     """View function for home page of site."""
@@ -47,8 +48,6 @@ class AuthorListView(generic.ListView):
 
 class AuthorDetailView(generic.DetailView):
     model = Author
-
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     """Generic class-based view listing books on loan to current user."""
@@ -105,22 +104,22 @@ from django.urls import reverse_lazy
 
 from catalog.models import Author
 
-class AuthorCreate(CreateView):
+class AuthorCreate(LoginRequiredMixin, CreateView):
     model = Author
     fields = '__all__'
     initial = {'date_of_death': '05/01/2018'}
 
-class AuthorUpdate(UpdateView):
+class AuthorUpdate(LoginRequiredMixin, UpdateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
 
-class AuthorDelete(DeleteView):
+class AuthorDelete(LoginRequiredMixin, DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
-class LoanedBooksListView(PermissionRequiredMixin,generic.ListView):
+class LoanedBooksListView(LoginRequiredMixin, PermissionRequiredMixin,generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = BookInstance
     permission_required = 'catalog.can_mark_returned'
