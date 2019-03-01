@@ -4,12 +4,12 @@
   <h1>Wizard List</h1>
   {% if wizard_list %}
   <ul>
-    {% for wizard in wizard %}
+    {% for wizard in wizard_list %}
       <li>
           {{ wizard.nickname }} ({{ wizard.house }})
           (<a href="{% url 'wizard_update' wizard.id %}">Update</a> |
           <a href="{% url 'wizard_delete' wizard.id %}">Delete</a>) <br/>
-          {{ wizard.spell }} ({{ wizard.power }})
+          {{ wizard.spell }} ({{ wizard.power }} units)
       </li>
     {% endfor %}
   </ul>
