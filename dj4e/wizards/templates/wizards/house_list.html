@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>House List</h1>
+  {% if house_list %}
+  <ul>
+    {% for house in house_list %}
+      <li>
+          {{ house.name }}
+         (<a href="{% url 'house_update' house.id %}">Update</a> |
+          <a href="{% url 'house_delete' house.id %}">Delete</a>)
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no houses in the library.</p>
+  {% endif %}
+  <p><a href="{% url 'house_create' %}">Add a house</a></p>
+  <p>
+    <a href="{% url 'wizards' %}">Back to wizards</a>
+  </p>
+{% endblock %}
+

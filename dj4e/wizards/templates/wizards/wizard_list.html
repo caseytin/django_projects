@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Wizard List</h1>
+  {% if wizard_list %}
+  <ul>
+    {% for wizard in wizard %}
+      <li>
+          {{ wizard.nickname }} ({{ wizard.house }})
+          (<a href="{% url 'wizard_update' wizard.id %}">Update</a> |
+          <a href="{% url 'wizard_delete' wizard.id %}">Delete</a>) <br/>
+          {{ wizard.spell }} ({{ wizard.power }})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no wizards in the library.</p>
+  {% endif %}
+  <p>
+    {% if house_count > 0 %}
+      <a href="{% url 'wizard_create' %}">Add a wizard</a>
+    {% else %}
+      Please add a house before you add a wizard.
+    {% endif %}
+  </p>
+  <p>
+  <a href="{% url 'house_list' %}">View houses</a> ({{ house_count }}) |
+    <a href="{% url 'house_create' %}">Add a house</a>
+  </p>
+{% endblock %}

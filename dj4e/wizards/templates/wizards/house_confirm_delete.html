@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Delete House</h1>
+
+<p>Are you sure you want to delete the house: {{ house }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete.">
+  <input type="submit" onclick="window.location='{% url 'wizards' %}' ; return false;" value="Cancel">
+</form>
+
+{% endblock %}
