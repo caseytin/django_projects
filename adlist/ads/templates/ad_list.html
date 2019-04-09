@@ -7,13 +7,12 @@
   {% for ad in ad_list %}
     <li>
         <a href="{% url 'ad_detail'  ad.id %}">{{ ad.title }}</a>
-        {% if ad.owner == user %}
+        {% if ad.owner_id == user.id %}
         (<a href="{% url 'ad_update' ad.id %}">Edit</a> |
         <a href="{% url 'ad_delete' ad.id %}">Delete</a>)
-        </p>
         {% endif %}
-
         {% if user.is_authenticated %}
+
         <a href="#" onclick=
             "favPost('{% url 'ad_unfavorite' ad.id %}', {{ ad.id }} );return false;"
             {% if ad.id not in favorites %} style="display: none;" {% endif %}
@@ -34,20 +33,11 @@
         </span>
         </a>
         {% endif %}
-
     </li>
   {% endfor %}
 </ul>
 {% else %}
   <p>There are no ads in the database.</p>
-{% endif %}
-</p>
-<p>
-<a href="{% url 'ad_create' %}">Create Ad</a> |
-{% if user.is_authenticated %}
-<a href="{% url 'logout' %}?next={% url 'ads' %}">Logout</a>
-{% else %}
-<a href="{% url 'login' %}?next={% url 'ads' %}">Login</a>
 {% endif %}
 </p>
 
@@ -69,8 +59,8 @@ function favPost(url, ad_id) {
         $("#favorite_star_"+ad_id).toggle();
     }).catch(function() {
         console.log(url, 'error');
+        console.log(ad_id);
     })
 }
 </script>
-
 {% endblock %}

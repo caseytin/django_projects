@@ -26,10 +26,10 @@ urlpatterns = [
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]
 
-# if 'social_django' in settings.INSTALLED_APPS:
-#     urlpatterns += [
-#         url(r'^oauth/', include('social_django.urls', namespace='social')),
-#     ]
+if 'social_django' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        url(r'^oauth/', include('social_django.urls', namespace='social')),
+    ]
 
 # Serve the favicon
 import os

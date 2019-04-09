@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from ads.models import Ad, Comment
+from ads.models import Ad, Comment, Fav
 from django.views import View, generic
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -58,8 +58,6 @@ class CommentCreateView(OwnerCreateView):
 class CommentDeleteView(OwnerDeleteView):
     model = Comment
     template_name = "comment_delete.html"
-
-
 
 class PicFormView(LoginRequiredMixin, View):
     template = 'ad_form.html'

@@ -31,6 +31,7 @@ class Ad(models.Model) :
 
 
 class Fav(models.Model) :
+
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
