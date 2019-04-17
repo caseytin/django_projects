@@ -1,0 +1,30 @@
+{% extends "auto_base_menu.html" %}
+{% block content %}
+<h1>Autos</h1>
+<p>
+{% if auto_list %}
+<ul>
+  {% for auto in auto_list %}
+    <li>
+        <a href="{% url 'auto_detail'  auto.id %}">{{ auto.name }}</a>
+        {% if auto.owner == user %}
+        (<a href="{% url 'auto_update' auto.id %}">Update</a> |
+        <a href="{% url 'auto_delete' auto.id %}">Delete</a>)
+        </p>
+        {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p>There are no autos in the database.</p>
+{% endif %}
+</p>
+<p>
+<a href="{% url 'auto_create' %}">Create Auto</a> |
+{% if user.is_authenticated %}
+<a href="{% url 'logout' %}?next={% url 'autos' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}?next={% url 'autos' %}">Login</a>
+{% endif %}
+</p>
+{% endblock %}
