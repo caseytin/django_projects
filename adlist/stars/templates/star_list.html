@@ -1,0 +1,30 @@
+{% extends "star_base_menu.html" %}
+{% block content %}
+<h1>Stars</h1>
+<p>
+{% if star_list %}
+<ul>
+  {% for star in star_list %}
+    <li>
+        <a href="{% url 'star_detail'  star.id %}">{{ star.name }}</a>
+        {% if star.owner == user %}
+        (<a href="{% url 'star_update' star.id %}">Update</a> |
+        <a href="{% url 'star_delete' star.id %}">Delete</a>)
+        </p>
+        {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p>There are no stars in the database.</p>
+{% endif %}
+</p>
+<p>
+<a href="{% url 'star_create' %}">Create Star</a> |
+{% if user.is_authenticated %}
+<a href="{% url 'logout' %}?next={% url 'stars' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}?next={% url 'stars' %}">Login</a>
+{% endif %}
+</p>
+{% endblock %}
